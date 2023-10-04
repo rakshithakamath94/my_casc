@@ -1,0 +1,500 @@
+credentials:
+  system:
+    domainCredentials:
+    - credentials:
+      - string:
+          description: "SONARQUBE JENKINS AUTHENTICATION TOKEN FOR RAKSHITHA"
+          id: "SONAR_TOKEN"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwUXNUxWTrHNHgzdkk7NAqNk800e5woRlInCnvBgmjC78EHzHM1mkPQdgZD7LZTrMKxGr4h+mG6HLzovWQ5vAzBQ==}"
+      - string:
+          description: "Github Access Token"
+          id: "github_access_token"
+          scope: GLOBAL
+          secret: "{AQAAABAAAAAwQfcrN/T8prPuYF8hAkGEHUFTzv6E5zIwPdwk5e4suoit6oNESyQsR7L70QBepLvxuT4JVhPL4yInlOaADuyHNw==}"
+      - string:
+          description: "jenkins token Rakshitha"
+          id: "jenkins_rakshitha"
+          scope: GLOBAL
+          secret: "{AQAAABAAAABwOS2plzKbINWW/6j7+Fx5pVZXefiBs9ZrrAREiJuQp3jSFqAemEK55+hjoqCwt3xc6C5iGhImmucoCYwF2WEvBoN5sh+PN5VcrcHqnHKblFtOzrLo5jHQQPTe+oP9R36fFw+0l2SUQwIzFNl1lqkPOGSTIG1glmJtOrhZky91xT0=}"
+      - usernamePassword:
+          description: "foo_bar"
+          id: "foo_bar"
+          password: "{AQAAABAAAAAQc3Trz8j3oxVd4k2J3PLTjZJ6RyghIsSoQvq10w2CP4Y=}"
+          scope: GLOBAL
+          username: "foo"
+jenkins:
+  agentProtocols:
+  - "JNLP4-connect"
+  - "Ping"
+  authorizationStrategy:
+    loggedInUsersCanDoAnything:
+      allowAnonymousRead: false
+  clouds:
+  - kubernetes:
+      addMasterProxyEnvVars: true
+      containerCap: 5
+      containerCapStr: "5"
+      jenkinsTunnel: "172.30.161.39:50000"
+      jenkinsUrl: "http://172.30.152.193:80"
+      name: "openshift"
+      namespace: "nfs-ganesha"
+      serverCertificate: |-
+        -----BEGIN CERTIFICATE-----
+        MIIDMjCCAhqgAwIBAgIIQuSR9rkaxLYwDQYJKoZIhvcNAQELBQAwNzESMBAGA1UE
+        CxMJb3BlbnNoaWZ0MSEwHwYDVQQDExhrdWJlLWFwaXNlcnZlci1sYi1zaWduZXIw
+        HhcNMjIxMTE4MTQzODE3WhcNMzIxMTE1MTQzODE3WjA3MRIwEAYDVQQLEwlvcGVu
+        c2hpZnQxITAfBgNVBAMTGGt1YmUtYXBpc2VydmVyLWxiLXNpZ25lcjCCASIwDQYJ
+        KoZIhvcNAQEBBQADggEPADCCAQoCggEBAMpcNtizsksGoEQio81YdllQjzunOKUH
+        DNDwPfM016XwKuUNd7GQh1d51dLe696m1B/zQ+X1hz0/AJ4ua5yn72bX3gvgBk52
+        am+CpuXjNkzQbVRtA/Bk8s0SyOdYasa/4ydhk8QCKV96EjOUds8QSyaSHbOrUlWO
+        IFW/K87CLttMu/hyjQK/uDW4L5ug8REkuNfU3G9UR4BezCX46nh0c8SNF7hrnAjd
+        OKZQ+4ZTYrZp6+IQTwLjKxKi0l22xVgTNHnnjBbggVX011h0hU+imHWn76qq1kDY
+        F3NaTxr2lxGlPxxdhxwsby36+NIpGNf/UxxdcqZ1MjkdH+7jN0hWT1sCAwEAAaNC
+        MEAwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFIKi
+        B40l/cMsYtSi1WTnv+9/mpX2MA0GCSqGSIb3DQEBCwUAA4IBAQC6B6fgocc1MUhF
+        m8J04+VxQE22dNia8R/S6zGMxTRVDgEFZ9lK039TRCCNYmw6nupTbaM+Q9/C5ljX
+        h2pK6VrBqjstJpg6SaxQ/gi4MfPrhtKLmnGPMKo3/3gEmG5BwMOCkAEBSFSZF0SV
+        MRBcgoGalhA720mRlQKUDcEnwk0anise9p/vUpPXNw8JjT3L7lw7Fp3NCHNJekY+
+        SHpPYu29TMoM4uwZHMqy+xl+jDXbJL/pv0uC/Y+c5580qtQEkOnKUUTDiLpPstjp
+        YQuibD9lvNfYXtVU6QfwcYbVEAlZ3qBp2mI1DWmX1nBTP7w6DH/+g/76XCjyyhFC
+        6RToZMBu
+        -----END CERTIFICATE-----
+      serverUrl: "https://172.30.0.1:443"
+      templates:
+      - containers:
+        - alwaysPullImage: true
+          args: "^${computer.jnlpmac} ^${computer.name}"
+          image: "image-registry.openshift-image-registry.svc:5000/openshift/jenkins-agent-maven:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          workingDir: "/tmp"
+        id: "maven-50e53b0fd012e7ade37fd375f47db620"
+        label: "maven"
+        name: "maven"
+        serviceAccount: "jenkins"
+        yamlMergeStrategy: "override"
+      - containers:
+        - alwaysPullImage: true
+          args: "^${computer.jnlpmac} ^${computer.name}"
+          image: "image-registry.openshift-image-registry.svc:5000/openshift/jenkins-agent-nodejs:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          workingDir: "/tmp"
+        id: "nodejs-1574e5e6af64ded46fc1a0ede7ac03a2"
+        label: "nodejs"
+        name: "nodejs"
+        serviceAccount: "jenkins"
+        yamlMergeStrategy: "override"
+      - containers:
+        - alwaysPullImage: true
+          args: "$(JENKINS_SECRET) $(JENKINS_NAME)"
+          image: "image-registry.openshift-image-registry.svc:5000/openshift/jenkins-agent-base:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          workingDir: "/home/jenkins/agent"
+        - alwaysPullImage: true
+          command: "cat"
+          image: "image-registry.openshift-image-registry.svc:5000/openshift/java:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "java"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "java-builder-4049f28b2b4dc3e98c97909816f3a76c"
+        label: "java-builder"
+        name: "java-builder"
+        serviceAccount: "jenkins"
+        yamlMergeStrategy: "override"
+      - containers:
+        - alwaysPullImage: true
+          args: "$(JENKINS_SECRET) $(JENKINS_NAME)"
+          image: "image-registry.openshift-image-registry.svc:5000/openshift/jenkins-agent-base:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          workingDir: "/home/jenkins/agent"
+        - alwaysPullImage: true
+          command: "cat"
+          image: "image-registry.openshift-image-registry.svc:5000/openshift/nodejs:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "nodejs"
+          ttyEnabled: true
+          workingDir: "/home/jenkins/agent"
+        id: "nodejs-builder-4081c5b6fe64b83861efb217384efbca"
+        label: "nodejs-builder"
+        name: "nodejs-builder"
+        serviceAccount: "jenkins"
+        yamlMergeStrategy: "override"
+      - containers:
+        - alwaysPullImage: true
+          args: "^${computer.jnlpmac} ^${computer.name}"
+          envVars:
+          - secretEnvVar:
+              key: "CICO_API_KEY"
+              secretKey: "key"
+              secretName: "duffy-api-key"
+          image: "quay.io/centosci/cico-workspace:latest"
+          livenessProbe:
+            failureThreshold: 0
+            initialDelaySeconds: 0
+            periodSeconds: 0
+            successThreshold: 0
+            timeoutSeconds: 0
+          name: "jnlp"
+          ttyEnabled: true
+          workingDir: "/tmp"
+        id: "cico-workspace-76283000becb7c8674abba13db91af80"
+        label: "cico-workspace"
+        name: "cico-workspace"
+        podRetention: "onFailure"
+        slaveConnectTimeout: 100
+        slaveConnectTimeoutStr: "100"
+        volumes:
+        - secretVolume:
+            mountPath: "/duffy-ssh-key/"
+            secretName: "duffy-ssh-key"
+        yamlMergeStrategy: "override"
+  crumbIssuer:
+    standard:
+      excludeClientIPFromCrumb: false
+  disableRememberMe: false
+  labelAtoms:
+  - name: "built-in"
+  - name: "cico-workspace"
+  - name: "java-builder"
+  - name: "master"
+  - name: "maven"
+  - name: "nodejs"
+  - name: "nodejs-builder"
+  labelString: "master"
+  markupFormatter: "plainText"
+  mode: NORMAL
+  myViewsTabBar: "standard"
+  numExecutors: 2
+  primaryView:
+    all:
+      name: "all"
+  projectNamingStrategy: "standard"
+  quietPeriod: 5
+  remotingSecurity:
+    enabled: true
+  scmCheckoutRetryCount: 0
+  securityRealm:
+    local:
+      allowsSignup: false
+      enableCaptcha: false
+      users:
+      - id: "rakshithakamath"
+        name: "Rakshitha Kamath"
+        properties:
+        - "apiToken"
+        - mailer:
+            emailAddress: "Rakshitha.Kamath@ibm.com"
+        - preferredProvider:
+            providerId: "default"
+        - "experimentalFlags"
+  slaveAgentPort: -1
+  updateCenter:
+    sites:
+    - id: "default"
+      url: "https://updates.jenkins.io/update-center.json"
+  views:
+  - all:
+      name: "all"
+  viewsTabBar: "standard"
+globalCredentialsConfiguration:
+  configuration:
+    providerFilter: "none"
+    typeFilter: "none"
+security:
+  apiToken:
+    creationOfLegacyTokenEnabled: false
+    tokenGenerationOnCreationEnabled: false
+    usageStatisticsEnabled: true
+  envInject:
+    enableLoadingFromMaster: false
+    enablePermissions: false
+    hideInjectedVars: false
+  gitHooks:
+    allowedOnAgents: false
+    allowedOnController: false
+  gitHostKeyVerificationConfiguration:
+    sshHostKeyVerificationStrategy: "knownHostsFileVerificationStrategy"
+  kerberosSso:
+    accountName: "Service account"
+    allowBasic: true
+    allowDelegation: false
+    allowLocalhost: true
+    allowUnsecureBasic: true
+    anonymousAccess: false
+    enabled: false
+    krb5Location: "/etc/krb5.conf"
+    loginClientModule: "spnego-client"
+    loginLocation: "/etc/login.conf"
+    loginServerModule: "spnego-server"
+    promptNtlm: false
+    redirectEnabled: false
+  sSHD:
+    port: -1
+unclassified:
+  ansiColorBuildWrapper:
+    colorMaps:
+    - black: "#000000"
+      blackB: "#4C4C4C"
+      blue: "#1E90FF"
+      blueB: "#4682B4"
+      cyan: "#00CDCD"
+      cyanB: "#00FFFF"
+      green: "#00CD00"
+      greenB: "#00FF00"
+      magenta: "#CD00CD"
+      magentaB: "#FF00FF"
+      name: "xterm"
+      red: "#CD0000"
+      redB: "#FF0000"
+      white: "#E5E5E5"
+      whiteB: "#FFFFFF"
+      yellow: "#CDCD00"
+      yellowB: "#FFFF00"
+    - black: "#000000"
+      blackB: "#555555"
+      blue: "#0000AA"
+      blueB: "#5555FF"
+      cyan: "#00AAAA"
+      cyanB: "#55FFFF"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#00AA00"
+      greenB: "#55FF55"
+      magenta: "#AA00AA"
+      magentaB: "#FF55FF"
+      name: "vga"
+      red: "#AA0000"
+      redB: "#FF5555"
+      white: "#AAAAAA"
+      whiteB: "#FFFFFF"
+      yellow: "#AA5500"
+      yellowB: "#FFFF55"
+    - black: "black"
+      blackB: "black"
+      blue: "blue"
+      blueB: "blue"
+      cyan: "cyan"
+      cyanB: "cyan"
+      green: "green"
+      greenB: "green"
+      magenta: "magenta"
+      magentaB: "magenta"
+      name: "css"
+      red: "red"
+      redB: "red"
+      white: "white"
+      whiteB: "white"
+      yellow: "yellow"
+      yellowB: "yellow"
+    - black: "#2E3436"
+      blackB: "#2E3436"
+      blue: "#3465A4"
+      blueB: "#3465A4"
+      cyan: "#06989A"
+      cyanB: "#06989A"
+      defaultBackground: 0
+      defaultForeground: 7
+      green: "#4E9A06"
+      greenB: "#4E9A06"
+      magenta: "#75507B"
+      magentaB: "#75507B"
+      name: "gnome-terminal"
+      red: "#CC0000"
+      redB: "#CC0000"
+      white: "#D3D7CF"
+      whiteB: "#D3D7CF"
+      yellow: "#C4A000"
+      yellowB: "#C4A000"
+  badgePlugin:
+    disableFormatHTML: false
+  buildDiscarders:
+    configuredBuildDiscarders:
+    - "jobBuildDiscarder"
+  buildStepOperation:
+    enabled: false
+  casCGlobalConfig:
+    configurationPath: "/Users/rakshithakamath/.jenkins/jenkins.yaml"
+  dependencyGraphProperty:
+    editFunctionInJSViewEnabled: false
+    graphRankDirection: "TB"
+    graphvizEnabled: true
+    projectNameStripRegex: ".*"
+    projectNameStripRegexGroup: 1
+    projectNameSuperscriptRegexGroup: -1
+  diskUsageProjectActionFactory:
+    checkWorkspaceOnAgent: false
+    historyLength: 183
+    showGraph: true
+    timeoutWorkspace: 5
+  email-ext:
+    adminRequiredForTemplateTesting: false
+    allowUnregisteredEnabled: false
+    charset: "UTF-8"
+    debugMode: false
+    defaultBody: |-
+      $PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS:
+
+      Check console output at $BUILD_URL to view the results.
+    defaultContentType: "text/plain"
+    defaultSubject: "$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!"
+    defaultTriggerIds:
+    - "hudson.plugins.emailext.plugins.trigger.FailureTrigger"
+    maxAttachmentSize: -1
+    maxAttachmentSizeMb: -1
+    precedenceBulk: false
+    watchingEnabled: false
+  enrichedSummaryConfig:
+    enrichedSummaryEnabled: false
+    httpClientDelayBetweenRetriesInSeconds: 1
+    httpClientMaxRetries: 3
+    httpClientTimeoutInSeconds: 1
+  fingerprints:
+    fingerprintCleanupDisabled: false
+    storage: "file"
+  gitHubConfiguration:
+    apiRateLimitChecker: ThrottleForNormalize
+  gitHubPluginConfig:
+    configs:
+    - credentialsId: "github_access_token"
+      manageHooks: false
+      name: "rakshitha-github"
+    hookUrl: "http://192.168.1.22:8080/github-webhook/"
+  globalTimeOutConfiguration:
+    operations:
+    - "abortOperation"
+    overwriteable: false
+  injectionConfig:
+    allowUntrusted: false
+    checkForBuildAgentErrors: false
+    enabled: false
+    enforceUrl: false
+    injectCcudExtension: false
+    injectMavenExtension: false
+  ircPublisher:
+    charset: "UTF-8"
+    commandPrefix: "!jenkins"
+    disallowPrivateChat: false
+    enabled: false
+    login: "PircBotx"
+    messageRate: 500
+    nick: "jenkins"
+    port: 194
+    sasl: false
+    socksPort: 1080
+    ssl: false
+    sslTrustAllCertificates: false
+    useColors: false
+    useNotice: false
+  jobConfigHistory:
+    excludePattern: "queue\\.xml|nodeMonitors\\.xml|UpdateCenter\\.xml|global-build-stats|LockableResourcesManager\\\
+      .xml|MilestoneStep\\.xml|cloudbees-disk-usage-simple\\.xml"
+    saveModuleConfiguration: false
+    showBuildBadges: "always"
+    showChangeReasonCommentWindow: true
+    skipDuplicateHistory: true
+  junitTestResultStorage:
+    storage: "file"
+  location:
+    adminAddress: "address not configured yet <nobody@nowhere>"
+    url: "http://192.168.1.22:8080/"
+  mailer:
+    charset: "UTF-8"
+    useSsl: false
+    useTls: false
+  mavenModuleSet:
+    localRepository: "default"
+  nestedViewGlobalConfig:
+    nestedViewHistoryCount: 500
+    nestedViewSearch: true
+  pollSCM:
+    pollingThreadCount: 10
+  prioritySorterConfiguration:
+    onlyAdminsMayEditPriorityConfiguration: false
+    strategy:
+      absoluteStrategy:
+        defaultPriority: 3
+        numberOfPriorities: 5
+  scheduleBuild:
+    defaultScheduleTime: "10:00:00 pm"
+    timeZone: "Asia/Kolkata"
+  scmGit:
+    addGitTagAction: false
+    allowSecondFetch: false
+    createAccountBasedOnEmail: false
+    disableGitToolChooser: false
+    hideCredentials: false
+    showEntireCommitSummaryInChanges: false
+    useExistingAccountWithSameEmail: false
+  sonarGlobalConfiguration:
+    buildWrapperEnabled: true
+    installations:
+    - credentialsId: "SONAR_TOKEN"
+      name: "SONARQUBE_INSTANCE"
+      serverUrl: "http://localhost:9000"
+      triggers:
+        skipScmCause: false
+        skipUpstreamCause: false
+  splunkJenkinsInstallation:
+    enabled: false
+    globalPipelineFilter: true
+    maxEventsBatchSize: 262144
+    metadataHost: "192.168.1.22"
+    port: 8088
+    rawEventEnabled: true
+    retriesOnError: 3
+    useSSL: true
+  timestamper:
+    allPipelines: false
+    elapsedTimeFormat: "'<b>'HH:mm:ss.S'</b> '"
+    systemTimeFormat: "'<b>'HH:mm:ss'</b> '"
+tool:
+  git:
+    installations:
+    - home: "git"
+      name: "Default"
+  mavenGlobalConfig:
+    globalSettingsProvider: "standard"
+    settingsProvider: "standard"
+  sonarRunnerInstallation:
+    installations:
+    - name: "SonarQubeScanner"
+      properties:
+      - installSource:
+          installers:
+          - sonarRunnerInstaller:
+              id: "5.0.1.3006"
